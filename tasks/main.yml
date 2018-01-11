@@ -1,0 +1,5 @@
+- name: download stolon
+  get_url: url="https://github.com/sorintlab/stolon/releases/download/v{{ stolon_version }}/stolon-v{{ stolon_version }}-linux-amd64.tar.gz" dest=/root/stolon-v{{ stolon_version }}-linux-amd64.tar.gz
+
+- name: unpack stolon
+  unarchive: copy=no src="/root/stolon-v{{ stolon_version }}-linux-amd64.tar.gz" dest={{ stolon_unarchive_prefix }}
