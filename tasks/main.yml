@@ -3,3 +3,13 @@
 
 - name: unpack stolon
   unarchive: copy=no src="/root/stolon-v{{ stolon_version }}-linux-amd64.tar.gz" dest={{ stolon_unarchive_prefix }}
+
+- name: create a user
+  user: name={{ stolon_user }}
+
+- name: put systemd unit file to its destination
+  template: src=stolon-sentinel.service dest=/etc/systemd/system/stolon-sentinel.service owner=root group=root mode=0644
+  notify: systemctl daemon-reload
+
+- name: enable stolon-sentinel service
+  service: name=stolon-sentinel enabled=yes state=started
