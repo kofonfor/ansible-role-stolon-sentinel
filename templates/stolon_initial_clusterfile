@@ -6,5 +6,11 @@
   },
   "standbySettings": {
     "primaryConnInfo": "host={{ stolon_remoteinstancehost }} port={{ stolon_remoteinstanceport }} user={{ stolon_repluser }} password={{ stolon_replpassword }} sslmode=disable"
+  },
+  "pgParameters": {
+    "max_connections": "300",
+    "shared_preload_libraries": "pg_stat_statements.so",
+    "archive_mode": "on",
+    "archive_command": "/bin/true"
   }
 }
