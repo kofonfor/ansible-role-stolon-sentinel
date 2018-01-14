@@ -3,10 +3,10 @@ Description=Stolon Sentinel
 Documentation=https://github.com/sorintlab/stolon/blob/master/doc/simplecluster.md
 
 [Service]
-User={{ stolon_user }}
-Group={{ stolon_user }}
+User={{ stolon_sentinel_user }}
+Group={{ stolon_sentinel_user }}
 Type=simple
-ExecStart={{ stolon_unarchive_prefix }}/stolon-v{{ stolon_version }}-linux-amd64/bin/stolon-sentinel --cluster-name {{ stolon_cluster_name }} --store-backend={{ stolon_store_backend }} --store-endpoints="{% for host in groups[etcd_cluster_group_name] %}http://{{ hostvars[host]['ansible_default_ipv4']['address'] }}:2379,{% endfor %}"
+ExecStart={{ stolon_unarchive_prefix }}/stolon-v{{ stolon_version }}-linux-amd64/bin/stolon-sentinel --cluster-name {{ stolon_cluster_name }} --store-backend={{ stolon_store_backend }} --store-endpoints="{% for host in groups[etcd_cluster_group_name] %}http://{{ hostvars[host]['ansible_default_ipv4']['address'] }}:2379,{% endfor %}" --initial-cluster-spec /home/{{ stolon_sentinel_user }}/initial_cluster
 StandardOutput=journal
 StandardError=journal
 Restart=always

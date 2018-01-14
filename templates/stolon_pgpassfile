@@ -1,0 +1,1 @@
+{{ stolon_remoteinstancehost }}:{{ stolon_remoteinstanceport }}:*:{{ stolon_repluser }}:{{ stolon_replpassword }}

@@ -5,11 +5,20 @@
   unarchive: copy=no src="/root/stolon-v{{ stolon_version }}-linux-amd64.tar.gz" dest={{ stolon_unarchive_prefix }}
 
 - name: create a user
-  user: name={{ stolon_user }}
+  user: name={{ stolon_sentinel_user }}
+
+- name: put stolon_pgpassfile
+  template: src=stolon_pgpassfile dest="{{ stolon_pgpassfile }}" mode=0600 owner="{{ stolon_sentinel_user }}" group="{{ stolon_sentinel_user }}"
+
+- name: put stolon_initial_clusterfile
+  template: src=stolon_initial_clusterfile dest="/home/{{ stolon_sentinel_user }}/initial_cluster" mode=0600 owner="{{ stolon_sentinel_user }}" group="{{ stolon_sentinel_user }}"
 
 - name: put systemd unit file to its destination
   template: src=stolon-sentinel.service dest=/etc/systemd/system/stolon-sentinel.service owner=root group=root mode=0644
   notify: systemctl daemon-reload
+
+- name: force all notified handlers to run at this point, not waiting for normal sync points
+  meta: flush_handlers
 
 - name: enable stolon-sentinel service
   service: name=stolon-sentinel enabled=yes state=started
