@@ -1,12 +1,19 @@
 {
+  {% if stolon_remoteinstancehost is defined %}
   "role": "standby",
   "initMode": "pitr",
+  {% else %}
+  "role": "master",
+  "initMode": "new",
+  {% endif %}
+  {% if stolon_remoteinstancehost is defined %}
   "pitrConfig": {
     "dataRestoreCommand": "PGPASSFILE={{ stolon_pgpassfile }} pg_basebackup -D \"%d\" -h {{ stolon_remoteinstancehost }} -p {{ stolon_remoteinstanceport }} -U {{ stolon_repluser }}"
   },
   "standbySettings": {
     "primaryConnInfo": "host={{ stolon_remoteinstancehost }} port={{ stolon_remoteinstanceport }} user={{ stolon_repluser }} password={{ stolon_replpassword }} sslmode=disable"
   },
+  {% endif %}
   "pgParameters": {
     "max_connections": "300",
     "shared_preload_libraries": "pg_stat_statements.so",

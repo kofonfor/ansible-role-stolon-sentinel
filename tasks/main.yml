@@ -9,6 +9,7 @@
 
 - name: put stolon_pgpassfile
   template: src=stolon_pgpassfile dest="{{ stolon_pgpassfile }}" mode=0600 owner="{{ stolon_sentinel_user }}" group="{{ stolon_sentinel_user }}"
+  when: "stolon_remoteinstancehost is defined"
 
 - name: put stolon_initial_clusterfile
   template: src=stolon_initial_clusterfile dest="/home/{{ stolon_sentinel_user }}/initial_cluster" mode=0600 owner="{{ stolon_sentinel_user }}" group="{{ stolon_sentinel_user }}"
