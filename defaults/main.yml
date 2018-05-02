@@ -1,4 +1,4 @@
-stolon_version: 0.9.0
+stolon_version: 0.10.0
 stolon_unarchive_prefix: /opt
 stolon_store_backend: etcd
 stolon_cluster_name: stolon-cluster
