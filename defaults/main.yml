@@ -6,3 +6,4 @@ etcd_cluster_group_name: etcd
 stolon_sentinel_user: stolon
 stolon_pgpassfile: /home/{{ stolon_sentinel_user }}/stolon_pgpassfile
 stolon_remoteinstanceport: 5432
+etcd_client_port: 2379
